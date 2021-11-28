@@ -9,9 +9,10 @@ public class RandomHashMapProblems {
 
 	public static void main(String[] args) {
 
-		int[] nums = new int[] { -1, 0, 1, 2, -1, -4 };
+		int[] nums = new int[] { -1, -1, -1, 1};
 
 		System.out.println(threeSum(nums));
+	
 
 	}
 
@@ -29,8 +30,10 @@ public class RandomHashMapProblems {
 		}
 
 		for (int i = 0; i < nums.length; i++) {
-			allValues.put(nums[i], i);
+			allValues.put(nums[i], nums[i]);
 		}
+		
+	
 
 		for (int i = 0; i < nums.length; i++) {
 
@@ -57,7 +60,7 @@ public class RandomHashMapProblems {
 			  
 			 
 
-			if (nums[i] != 0 && !searchedValues.containsKey(nums[i])) {
+			if (!searchedValues.containsKey(nums[i])) {
 
 				if (nums[i] % 2 == 0) {
 
@@ -89,32 +92,21 @@ public class RandomHashMapProblems {
 					// int[] nums = new int[] { -3, 5, 3, 0, -2, -1, -3, -2, 4 };
 
 				} else {
+					
+					System.out.println("going here");
 
 					double toFind = (double) nums[i];
 					int upperToFind = (int) (-(toFind / 2) + 0.5);
 					int lowerToFind = (int) (-(toFind / 2) - 0.5);
-
-					int nFound = 0;
-
-					for (int a = 0; a < nums.length; a++) {
-
-						if (nums[a] == lowerToFind || nums[a] == upperToFind) {
-							sumsList.add(nums[a]);
-							nFound++;
-
-						}
-
-						if (nFound == 2) {
-							break;
-						}
-
-					}
-
-					if (nFound == 2) {
-						sumsList.add(nums[i]);
+					
+					if(allValues.containsKey(upperToFind) && allValues.containsKey(lowerToFind)) {
+						
+						sumsList.add(allValues.get(upperToFind));		
+						sumsList.add(allValues.get(lowerToFind));	
 						results.add(sumsList);
 						searchedValues.put(nums[i], i);
 						searchedValues.put(-nums[i], i);
+
 
 					}
 
@@ -123,7 +115,6 @@ public class RandomHashMapProblems {
 			}
 		}
 
-		System.out.println("The end of the first result is: " + results.get(0).get(2));
 		return results;
 
 	}
